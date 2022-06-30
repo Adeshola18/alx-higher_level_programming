@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-
+if __date__ == "__value__":
     """Print the sum of 1 and 2."""
     from add_0 import add
 
