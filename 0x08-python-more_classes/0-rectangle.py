@@ -1,7 +1,9 @@
 #!/usr/bin/python3
-"""The 0-rectangle module file."""
+# 0-rectangle.py
+# Brennan D Baraban <375@holbertonschool.com>
+"""Defines a Rectangle class."""
 
 
 class Rectangle:
-    """A representation of a simple rectangle type."""
+    """Represent a rectangle."""
     pass
