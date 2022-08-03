@@ -8,7 +8,7 @@ load_from_json_file = __import__('6-load_from_json_file').load_from_json_file
 
 try:
     ls = load_from_json_file("add_item.json")
-except:
+except FileNotFoundError:
     ls = []
 
 for i in sys.argv[1:]:
