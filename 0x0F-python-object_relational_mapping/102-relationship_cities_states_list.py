@@ -20,3 +20,4 @@ if __name__ == '__main__':
     res = session.query(State).filter(State.id == 2).first()
     res.name = 'New Mexico'
     session.commit()
+    
