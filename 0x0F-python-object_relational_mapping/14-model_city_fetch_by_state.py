@@ -1,24 +1,26 @@
 #!/usr/bin/python3
 """
-a script that prints all City objects from the database hbtn_0e_14_usa
+a script that display cities in state
 """
+
 import sys
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, Session
-from model_city import City
+from sqlalchemy.orm import sessionmaker
 from model_state import Base, State
+from model_city import City
 
 
 if __name__ == '__main__':
-    engine = create_engine(
-        'mysql+mysqldb://{}:{}@localhost:3306/{}'
-        .format(sys.argv[1], sys.argv[2], sys.argv[3])
-    )
-    Base.metadata.create_all(engine)
+    engine = create_engine('mysql+mysqldb://{}:{}@localhost/{}'
+                           .format(sys.argv[1], sys.argv[2], sys.argv[3]),
+                           pool_pre_ping=True)
+
     Session = sessionmaker(bind=engine)
     session = Session()
-    resArr = session.query(State.name, City.id, City.name)
-    resFilterArr = resArr.filter(City.state_id == State.id, City.id)
-    resOrderdArr = resFilterArr.order_by(City.id)
-    for r in resOrderdArr:
-        print('{}: ({}) {}'.format(r[0], r[1], r[2]))
+
+    states_cities = session.query(State, City)\
+                           .filter(State.id == City.state_id)\
+                           .order_by(City.id).all()
+
+    for state, city in states_cities:
+        print('{}: ({}) {}'. format(state.name, city.id, city.name))
