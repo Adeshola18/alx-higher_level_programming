@@ -21,3 +21,4 @@ if __name__ == '__main__':
     resFilteredArr = resArr.filter(City.state_id == State.id).order_by(City.id)
     for r in resFilteredArr:
         print("{}: {} -> {}".format(r[0], r[1], r[2]))
+        

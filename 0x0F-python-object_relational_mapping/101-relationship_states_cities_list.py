@@ -9,17 +9,14 @@ from sqlalchemy.orm import Session, sessionmaker
 from relationship_city import City
 from relationship_state import Base, State
 
-
-if __name__ == '__main__':
-    engine = create_engine(
-        'mysql+mysqldb://{}:{}@localhost:3306/{}'
-        .format(sys.argv[1], sys.argv[2], sys.argv[3])
-    )
-    Base.metadata.create_all(engine)
+if __name__ == "__main__":
+    engine = create_engine("mysql+mysqldb://{}:{}@localhost/{}"
+                           .format(sys.argv[1], sys.argv[2], sys.argv[3]),
+                           pool_pre_ping=True)
     Session = sessionmaker(bind=engine)
     session = Session()
-    res = session.query(State).filter(State.id)
-    for r in res:
-        print("{}: {}".format(r.id, r.name))
-        for c in r.cities:
-            print("\t{}: {}".format(c.id, c.name))
+
+    for state in session.query(State).order_by(State.id):
+        print("{}: {}".format(state.id, state.name))
+        for city in state.cities:
+            print("    {}: {}".format(city.id, city.name))
