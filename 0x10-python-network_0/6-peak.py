@@ -23,4 +23,3 @@ def find_peak(list_of_integers):
         else:
             i += 1
     return
-  
